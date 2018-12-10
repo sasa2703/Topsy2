@@ -3,5 +3,50 @@
 @{
     ViewData["Title"] = Model.IsNewRecipe ? "New Recipe" : "Edit Recipe";
 }
-
-<strong>Id: @Model.Id</strong>
+@if (!ModelState.IsValid)
+{
+    <div class=" col-md-offset-2 com-md-10">
+        <h3 class="text-danger">Validation Errors</h3>
+        <div asp-validation-summary="All"></div>
+    </div>
+}
+<form method="post" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Image" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input type="file" asp-for="Image" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.Name" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Recipe.Name" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.Description" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <textarea rows="3" asp-for="Recipe.Description" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.Ingredients" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <textarea rows="5" asp-for="Recipe.Ingredients" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Recipe.Directions" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <textarea rows="5" asp-for="Recipe.Directions" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Save</button>
+            @if (!Model.IsNewRecipe)
+            {
+                <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Delete</button>
+            }
+        </div>
+</form>
